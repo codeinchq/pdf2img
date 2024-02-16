@@ -54,9 +54,6 @@ app.post('/convert', upload.single('file'), (req, res) => {
         res.status(400);
         res.send({error: e.message});
         fs.unlinkSync(pdfPath);
-
-app.get('/demo', async (req, res) => {
-    res.sendFile('assets/demo-form.html', {root: path.resolve()});
     }
 });
 
