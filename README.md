@@ -38,6 +38,10 @@ http://localhost:3000/demo
 
 **Using CURL:**
 ```bash
+# First page conversion to the default format (WebP)
 curl -X POST -F "file=@/path/to/file.pdf" http://localhost:3000/convert -o example.webp
+
+# Conversion with custom params (page 2 to JPEG with a red background)
+ curl -X POST -F "file=@/path/to/file.pdf" -F "page=1" -F "format=jpg" -F "background=red" http://localhost:3000/convert -o example.jpg
 ```
 
