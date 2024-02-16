@@ -35,7 +35,7 @@ docker run -p "3000:3000" codeinchq/pdf2img
 ### Step 2: convert a PDF file to images
 Using CURL:
 ```bash
-curl -X POST -F "file=@/path/to/file.pdf" http://localhost:3000/convert > output.webp
+curl -X POST -F "file=@/path/to/file.pdf" http://localhost:3000/convert -o example.webp
 ```
 
 Using the web form:  
