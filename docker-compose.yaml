@@ -1,0 +1,10 @@
+services:
+  pdf2img:
+    build:
+      context: .
+      target: pdf2img-dev
+    volumes:
+      - ./:/app/
+    ports:
+      - "3000:3000"
+    tty: true
