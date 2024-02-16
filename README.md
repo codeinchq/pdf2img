@@ -1,9 +1,11 @@
 # pdf2image
 
+[![Docker Image CI](https://github.com/codeinchq/pdf2img/actions/workflows/docker-image.yml/badge.svg)](https://github.com/codeinchq/pdf2img/actions/workflows/docker-image.yml)
+
 This repository contains a simple containerized API to convert PDF documents to images
 using [Imagemagick](https://imagemagick.org/index.php).
 
-BNy default the container listens on port 3000. The port is configurable using the `PORT` environment variable.
+By default the container listens on port 3000. The port is configurable using the `PORT` environment variable.
 
 You can test the API by calling `/demo` which displays a simple form to upload a PDF file and convert it to images.
 
