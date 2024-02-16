@@ -20,6 +20,7 @@ COPY main.mjs /app/
 COPY package.json /app/
 COPY package-lock.json /app/
 COPY src /app/src
+COPY assets /app/assets
 RUN mkdir -p /app/temp
 RUN npm install --production
 
