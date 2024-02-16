@@ -15,6 +15,8 @@ The image is available on [Docker Hub](https://hub.docker.com/r/codeinchq/pdf2im
 
 All requests must by send in POST to the `/convert` endpoint with a `multipart/form-data` content type. The request must contain a file with the key `file` and the value the PDF file to convert.
 
+The server returns `200` if the conversion was successful and the images are available in the response body. In case of error, the server returns a `400` status code with a JSON object containing the error message (format: `{error: string}`).
+
 Supported POST parameters:
 * `format`: The format of the output images. Default is jpg.
 * `density`: The density of the output images. Default is 300.
@@ -33,15 +35,12 @@ docker run -p "3000:3000" codeinchq/pdf2img
 ```
 
 ### Step 2: convert a PDF file to images
-**Using the demo web form:**  
-http://localhost:3000/demo
-
-**Using CURL:**
+First page conversion to the default format (WebP)
 ```bash
-# First page conversion to the default format (WebP)
 curl -X POST -F "file=@/path/to/file.pdf" http://localhost:3000/convert -o example.webp
-
-# Conversion with custom params (page 2 to JPEG with a red background)
- curl -X POST -F "file=@/path/to/file.pdf" -F "page=1" -F "format=jpg" -F "background=red" http://localhost:3000/convert -o example.jpg
+```
+Conversion with custom params (page 2 to JPEG with an orange background):
+```bash
+curl -X POST -F "file=@/path/to/file.pdf" -F "page=1" -F "format=jpg" -F "background=#F60" http://localhost:3000/convert -o example.jpg
 ```
 

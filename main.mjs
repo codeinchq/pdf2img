@@ -7,10 +7,10 @@
 
 import express from 'express';
 import multer from 'multer';
-import convertPdf2image from "./src/convertPdf2image.js";
 import uniqid from 'uniqid';
 import * as path from "path";
 import * as fs from "fs";
+import {execSync} from "child_process";
 
 const port = +(process.env.PORT ?? 3000);
 const tempDir = 'temp';
@@ -18,9 +18,11 @@ const tempDir = 'temp';
 const app = express();
 const upload = multer({dest: tempDir});
 
-app.post('/convert', upload.single('file'), async (req, res) => {
+app.post('/convert', upload.single('file'), (req, res) => {
     if (!req.file.filename) {
-        throw new Error('Missing required parameter: file');
+        res.status(400);
+        res.send({error: 'No file uploaded'});
+        return;
     }
 
     const format = req.body.format ?? 'webp';
@@ -28,27 +30,34 @@ app.post('/convert', upload.single('file'), async (req, res) => {
     const imagePath = `${tempDir}/${uniqid()}.${format}`;
 
     // converting the PDF file to images
-    await convertPdf2image(pdfPath, imagePath, {
-        format,
-        density: req.body.density,
-        background: req.body.background,
-        width: req.body.width,
-        height: req.body.height,
-        quality: req.body.quality,
-        page: req.body.page,
-    });
+    console.log(`Converting PDF ${req.file.originalname} to ${format}`);
+    try {
+        execSync(`convert `
+            + `-density ${+(req.body.density ?? 300)} `
+            + `-background '${req.body.background ?? 'white'}' `
+            + `-flatten `
+            + `-resize ${+(req.body.width ?? 800)}x${+(req.body.height ?? 600)} `
+            + `-quality ${+(req.body.quality ?? 80)}% `
+            + `pdf:${pdfPath}[${+(req.body.page ?? 0)}] `
+            + `${req.body.format ?? 'webp'}:${imagePath}`);
 
-    // sending the images as a response
-    // await res.download(imagePath);
-    res.sendFile(imagePath, {root: path.resolve()}, () => {
-        // cleaning up
+        // sending the images as a response
+        // await res.download(imagePath);
+        res.sendFile(imagePath, {root: path.resolve()}, (err) => {
+            // cleaning up
+            fs.unlinkSync(pdfPath);
+            fs.unlinkSync(imagePath);
+        });
+    }
+    catch (e) {
+        console.error(e.message);
+        res.status(400);
+        res.send({error: e.message});
         fs.unlinkSync(pdfPath);
-        fs.unlinkSync(imagePath);
-    });
-});
 
 app.get('/demo', async (req, res) => {
     res.sendFile('assets/demo-form.html', {root: path.resolve()});
+    }
 });
 
 app.listen(port, () => {
