@@ -13,7 +13,7 @@ By default, the container listens on port 3000. The port is configurable using t
 
 ## Usage
 
-All requests must by send in POST to the `/convert` endpoint with a `multipart/form-data` content type. The request must contain a file with the key `file`. Additional parameters can be sent to customize the conversion process:
+All requests must by send in POST to the `/convert` endpoint with a `multipart/form-data` content type. The request must contain a PDF file with the key `file`. Additional parameters can be sent to customize the conversion process:
 * `format`: The format of the output images. Default is jpg.
 * `density`: The density of the output images. Default is 300.
 * `height`: The height of the output images. Default is 1000.
