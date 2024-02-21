@@ -13,11 +13,7 @@ The image is available on [Docker Hub](https://hub.docker.com/r/codeinchq/pdf2im
 
 ## Usage
 
-All requests must by send in POST to the `/convert` endpoint with a `multipart/form-data` content type. The request must contain a file with the key `file` and the value the PDF file to convert.
-
-The server returns `200` if the conversion was successful and the images are available in the response body. In case of error, the server returns a `400` status code with a JSON object containing the error message (format: `{error: string}`).
-
-Supported POST parameters:
+All requests must by send in POST to the `/convert` endpoint with a `multipart/form-data` content type. The request must contain a file with the key `file`. Additional parameters can be sent to customize the conversion process:
 * `format`: The format of the output images. Default is jpg.
 * `density`: The density of the output images. Default is 300.
 * `height`: The height of the output images. Default is 1000.
@@ -26,6 +22,7 @@ Supported POST parameters:
 * `quality`: The quality of the output images in percentage. Default is 80.
 * `page`: The page to convert starting at 0. Default is 0.
 
+The server returns `200` if the conversion was successful and the images are available in the response body. In case of error, the server returns a `400` status code with a JSON object containing the error message (format: `{error: string}`).
 
 ## Example
 
