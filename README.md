@@ -5,11 +5,11 @@
 This repository contains a simple containerized API to convert PDF documents to images
 using [Imagemagick](https://imagemagick.org/).
 
-By default the container listens on port 3000. The port is configurable using the `PORT` environment variable.
-
-You can test the API by calling `/demo` which displays a simple form to upload a PDF file and convert it to images.
-
 The image is available on [Docker Hub](https://hub.docker.com/r/codeinchq/pdf2img) under the name `codeinchq/pdf2img`.
+
+## Configuration
+
+By default, the container listens on port 3000. The port is configurable using the `PORT` environment variable.
 
 ## Usage
 
