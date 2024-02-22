@@ -9,20 +9,6 @@ WORKDIR /app
 
 RUN apk add --no-cache imagemagick imagemagick-pdf poppler-utils
 
-####################################################################################################
-# PDF2IMG prod
-####################################################################################################
-FROM pdf2img AS pdf2img-prod
-
-COPY main.mjs /app/
-COPY package.json /app/
-COPY package-lock.json /app/
-RUN mkdir -p /app/temp
-RUN npm install --production
-
-EXPOSE $PORT
-ENTRYPOINT ["node", "main.mjs"]
-
 
 ####################################################################################################
 # PDF2IMG dev
@@ -34,3 +20,18 @@ RUN npm install --global nodemon
 
 EXPOSE $PORT
 ENTRYPOINT ["nodemon", "main.mjs"]
+
+
+####################################################################################################
+# PDF2IMG prod
+####################################################################################################
+FROM pdf2img AS pdf2img-prod
+
+COPY main.mjs /app/
+COPY package.json /app/
+COPY package-lock.json /app/
+RUN mkdir -p /app/temp
+RUN npm install --omit=dev
+
+EXPOSE $PORT
+ENTRYPOINT ["node", "main.mjs"]
