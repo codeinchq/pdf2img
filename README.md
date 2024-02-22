@@ -1,4 +1,4 @@
-# pdf2image
+# pdf2img
 
 [![Docker Image CI](https://github.com/codeinchq/pdf2img/actions/workflows/docker-image.yml/badge.svg)](https://github.com/codeinchq/pdf2img/actions/workflows/docker-image.yml)
 
