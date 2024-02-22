@@ -43,4 +43,4 @@ curl -X POST -F "file=@/path/to/file.pdf" -F "page=1" -F "format=jpg" -F "backgr
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/codeinchq/pdf2img?tab=MIT-1-ov-file) file for details.
