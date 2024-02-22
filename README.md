@@ -41,6 +41,11 @@ Conversion with custom params (page 2 to JPEG with an orange background):
 curl -X POST -F "file=@/path/to/file.pdf" -F "page=1" -F "format=jpg" -F "background=#F60" http://localhost:3000/convert -o example.jpg
 ```
 
+## Client
+
+A PHP 8 client is available at on [GitHub](https://github.com/codeinchq/pdf2img-php-client) and [Packagist](https://packagist.org/packages/codeinc/pdf2img-client).
+
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/codeinchq/pdf2img?tab=MIT-1-ov-file) file for details.
