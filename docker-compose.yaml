@@ -1,6 +1,6 @@
 services:
   pdf2img:
-    image: codeinchq/pdf2img:latest
+    image: pdf2img-dev
     build:
       context: .
       target: pdf2img-dev
