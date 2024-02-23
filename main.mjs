@@ -44,7 +44,7 @@ app.post('/convert', upload.single('file'), (req, res) => {
 
         // sending the images as a response
         // await res.download(imagePath);
-        res.sendFile(imagePath, {root: path.resolve()}, (err) => {
+        res.sendFile(imagePath, {root: path.resolve()}, () => {
             // cleaning up
             fs.unlinkSync(pdfPath);
             fs.unlinkSync(imagePath);
