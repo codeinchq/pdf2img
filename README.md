@@ -20,7 +20,7 @@ All requests must by send in POST to the `/convert` endpoint with a `multipart/f
 * `width`: The width of the output images. Default is 1000.
 * `background`: The background color of the output images. Default is white.
 * `quality`: The quality of the output images in percentage. Default is 80.
-* `page`: The page to convert starting at 0. Default is 0.
+* `page`: The page to convert starting at 1. Default is 1.
 
 The server returns `200` if the conversion was successful and the images are available in the response body. In case of error, the server returns a `400` status code with a JSON object containing the error message (format: `{error: string}`).
 
@@ -38,7 +38,7 @@ curl -X POST -F "file=@/path/to/file.pdf" http://localhost:3000/convert -o examp
 ```
 Conversion with custom params (page 2 to JPEG with an orange background):
 ```bash
-curl -X POST -F "file=@/path/to/file.pdf" -F "page=1" -F "format=jpg" -F "background=#F60" http://localhost:3000/convert -o example.jpg
+curl -X POST -F "file=@/path/to/file.pdf" -F "page=2" -F "format=jpg" -F "background=#F60" http://localhost:3000/convert -o example.jpg
 ```
 
 ## Client

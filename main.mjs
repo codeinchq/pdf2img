@@ -39,7 +39,7 @@ app.post('/convert', upload.single('file'), (req, res) => {
             + `-flatten `
             + `-resize ${+(req.body.width ?? 800)}x${+(req.body.height ?? 600)} `
             + `-quality ${+(req.body.quality ?? 80)}% `
-            + `pdf:${pdfPath}[${+(req.body.page ?? 0)}] `
+            + `pdf:${pdfPath}[${(+(req.body.page ?? 1) - 1)}] `
             + `${req.body.format ?? 'webp'}:${imagePath}`);
 
         // sending the images as a response
