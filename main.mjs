@@ -20,7 +20,7 @@ const app = express();
 const upload = multer({dest: tempDir});
 
 app.post('/convert', upload.single('file'), (req, res) => {
-    if (!req.file.filename) {
+    if (!req.file?.filename) {
         res.status(400);
         res.send({error: 'No file uploaded'});
         return;
