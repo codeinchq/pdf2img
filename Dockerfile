@@ -1,7 +1,7 @@
 ####################################################################################################
 # PDF2IMG
 ####################################################################################################
-FROM --platform=$TARGETPLATFORM node:21-alpine AS pdf2img
+FROM --platform=$TARGETPLATFORM node:lts-alpine AS pdf2img
 
 ENV PORT=3000
 ENV NODE_ENV=production
