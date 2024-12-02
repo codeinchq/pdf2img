@@ -19,6 +19,19 @@ const tempDir = 'temp';
 const app = express();
 const upload = multer({dest: tempDir});
 
+/**
+ * Health check endpoint
+ */
+app.get('/health', (req, res) => {
+    res.json({
+        status: "up",
+        timestamp: new Date().toISOString()
+    });
+});
+
+/**
+ * Convert a PDF file to an image
+ */
 app.post('/convert', upload.single('file'), (req, res) => {
     if (!req.file?.filename) {
         res.status(400);
