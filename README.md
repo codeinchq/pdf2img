@@ -41,6 +41,13 @@ Conversion with custom params (page 2 to JPEG with an orange background):
 curl -X POST -F "file=@/path/to/file.pdf" -F "page=2" -F "format=jpg" -F "background=#F60" http://localhost:3000/convert -o example.jpg
 ```
 
+### Health check
+
+A health check is available at the `/health` endpoint. The server returns a status code of `200` if the service is healthy, along with a JSON object:
+```json
+{ "status": "up" }
+```
+
 ## Client
 
 A PHP 8 client is available at on [GitHub](https://github.com/codeinchq/pdf2img-php-client) and [Packagist](https://packagist.org/packages/codeinc/pdf2img-client).
