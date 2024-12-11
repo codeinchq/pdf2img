@@ -50,7 +50,7 @@ A health check is available at the `/health` endpoint. The server returns a stat
 
 ## Client
 
-A PHP 8 client is available at on [GitHub](https://github.com/codeinchq/pdf2img-php-client) and [Packagist](https://packagist.org/packages/codeinc/pdf2img-client).
+A PHP 8 client is available at on [GitHub](https://github.com/codeinchq/document-cloud-php-client) and [Packagist](https://packagist.org/packages/codeinc/document-cloud-client).
 
 
 ## License
