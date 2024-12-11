@@ -1,6 +1,8 @@
 # pdf2img
 
+[![Code Inc.](https://img.shields.io/badge/Code%20Inc.-Document%20Cloud-blue)](https://www.codeinc.co)
 [![Docker Image CI](https://github.com/codeinchq/pdf2img/actions/workflows/docker-image.yml/badge.svg)](https://github.com/codeinchq/pdf2img/actions/workflows/docker-image.yml)
+[![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/codeinchq/pdf2img?label=Version&color=red)](https://github.com/codeinchq/pdf2img/releases/latest)
 
 This repository contains a simple containerized API to convert PDF documents to images
 using [Imagemagick](https://imagemagick.org/).
