@@ -19,13 +19,15 @@ const tempDir = 'temp';
 const app = express();
 const upload = multer({dest: tempDir});
 
+const startedAt = new Date().toISOString();
+
 /**
  * Health check endpoint
  */
 app.get('/health', (req, res) => {
     res.json({
         status: "up",
-        timestamp: new Date().toISOString()
+        startedAt,
     });
 });
 
