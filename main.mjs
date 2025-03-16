@@ -15,9 +15,9 @@ import * as fs from "fs";
 import {execSync} from "child_process";
 
 const PORT = +(process.env.PORT ?? 3000);
-const VERSION = +(process.env.VERSION ?? "");
-const BUILD_ID = +(process.env.BUILD_ID ?? "");
-const COMMIT_SHA = +(process.env.COMMIT_SHA ?? "");
+const VERSION = +(process.env.VERSION ?? null);
+const BUILD_ID = +(process.env.BUILD_ID ?? null);
+const COMMIT_SHA = +(process.env.COMMIT_SHA ?? null);
 const TEMP_DIR = 'temp';
 const UP_SINCE = new Date().toISOString();
 
