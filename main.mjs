@@ -14,6 +14,9 @@ import * as path from "path";
 import * as fs from "fs";
 import {execSync} from "child_process";
 
+/**
+ * Reading the environment variables
+ */
 const PORT = +(process.env.PORT ?? 3000);
 const VERSION = process.env.VERSION ?? null;
 const BUILD_ID = process.env.BUILD_ID ?? null;
@@ -21,12 +24,14 @@ const COMMIT_SHA = process.env.COMMIT_SHA ?? null;
 const TEMP_DIR = 'temp';
 const UP_SINCE = new Date().toISOString();
 
+/**
+ * Creating the Express app
+ */
 const app = express();
 const upload = multer({dest: TEMP_DIR});
 
-
 /**
- * Version endpoint
+ * Service info endpoint
  */
 app.get('/', (req, res) => {
     res.json({
@@ -79,6 +84,9 @@ app.post('/convert', upload.single('file'), (req, res) => {
     }
 });
 
+/**
+ * Starting the server
+ */
 app.listen(PORT, () => {
     console.log(`Now listening on port ${PORT}`);
 });
