@@ -13,21 +13,26 @@ import * as path from "path";
 import * as fs from "fs";
 import {execSync} from "child_process";
 
-const port = +(process.env.PORT ?? 3000);
-const tempDir = 'temp';
+const PORT = +(process.env.PORT ?? 3000);
+const VERSION = +(process.env.VERSION ?? "");
+const BUILD_ID = +(process.env.BUILD_ID ?? "");
+const COMMIT_SHA = +(process.env.COMMIT_SHA ?? "");
+const TEMP_DIR = 'temp';
+const UP_SINCE = new Date().toISOString();
 
 const app = express();
-const upload = multer({dest: tempDir});
+const upload = multer({dest: TEMP_DIR});
 
-const startedAt = new Date().toISOString();
 
 /**
- * Health check endpoint
+ * Version endpoint
  */
-app.get('/health', (req, res) => {
+app.get('/', (req, res) => {
     res.json({
-        status: "up",
-        startedAt,
+        upSince: UP_SINCE,
+        version: VERSION,
+        buildId: BUILD_ID,
+        commitSha: COMMIT_SHA,
     });
 });
 
@@ -42,8 +47,8 @@ app.post('/convert', upload.single('file'), (req, res) => {
     }
 
     const format = req.body.format ?? 'webp';
-    const pdfPath = `${tempDir}/${req.file.filename}`;
-    const imagePath = `${tempDir}/${uniqid()}.${format}`;
+    const pdfPath = `${TEMP_DIR}/${req.file.filename}`;
+    const imagePath = `${TEMP_DIR}/${uniqid()}.${format}`;
 
     // converting the PDF file to images
     console.log(`Converting PDF ${req.file.originalname} to ${format}`);
@@ -73,6 +78,6 @@ app.post('/convert', upload.single('file'), (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log(`Now listening on port ${port}`);
+app.listen(PORT, () => {
+    console.log(`Now listening on port ${PORT}`);
 });

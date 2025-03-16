@@ -27,6 +27,16 @@ ENTRYPOINT ["nodemon", "main.mjs"]
 ####################################################################################################
 FROM pdf2img AS pdf2img-prod
 
+ARG PORT
+ARG VERSION
+ARG BUILD_ID
+ARG COMMIT_SHA
+
+ENV PORT=${PORT}
+ENV VERSION=${VERSION}
+ENV BUILD_ID=${BUILD_ID}
+ENV COMMIT_SHA=${COMMIT_SHA}
+
 COPY main.mjs /app/
 COPY package.json /app/
 COPY package-lock.json /app/
