@@ -1,6 +1,6 @@
 # PDF to Image Converter API
 
-[![Docker Image CI](https://github.com/codeinchq/pdf2img/actions/workflows/docker-image.yml/badge.svg)](https://github.com/codeinchq/pdf2img/actions/workflows/docker-image.yml)
+[![Build and push](https://github.com/joanfabregat/pdf2img/actions/workflows/build.yml/badge.svg)](https://github.com/joanfabregat/pdf2img/actions/workflows/build.yml)
 [![Docker Image Version](https://img.shields.io/docker/v/joanfabregat/pdf2img?sort=semver&label=Docker%20Hub&color=red)](https://hub.docker.com/r/joanfabregat/pdf2img/tags)
 
 A lightweight Express.js service that converts PDF files to various image formats base
