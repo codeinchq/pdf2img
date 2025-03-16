@@ -1,7 +1,14 @@
-####################################################################################################
-# PDF2IMG
-####################################################################################################
-FROM --platform=$TARGETPLATFORM node:lts-alpine AS pdf2img
+# Copyright (c) 2025 Joan Fabrégat <j@fabreg.at>
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation
+# files (the "Software"), to deal in the Software without
+# restriction, subject to the conditions in the full MIT License.
+# The Software is provided "as is", without warranty of any kind.
+
+##
+# Base image
+##
+FROM --platform=$TARGETPLATFORM node:lts-alpine AS base
 
 ENV PORT=3000
 ENV NODE_ENV=production
@@ -10,10 +17,10 @@ WORKDIR /app
 RUN apk add --no-cache imagemagick imagemagick-pdf poppler-utils
 
 
-####################################################################################################
-# PDF2IMG dev
-####################################################################################################
-FROM pdf2img AS pdf2img-dev
+##
+# Dev image
+##
+FROM base AS pdf2img-dev
 
 ENV NODE_ENV=development
 RUN npm install --global nodemon
@@ -22,10 +29,10 @@ EXPOSE $PORT
 ENTRYPOINT ["nodemon", "main.mjs"]
 
 
-####################################################################################################
-# PDF2IMG prod
-####################################################################################################
-FROM pdf2img AS pdf2img-prod
+##
+# Prod image
+##
+FROM base AS pdf2img-prod
 
 ARG PORT
 ARG VERSION
