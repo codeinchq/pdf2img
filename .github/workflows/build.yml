@@ -40,6 +40,12 @@ jobs:
         with:
           images: joanfabregat/pdf2img
 
+      - name: Debug variables
+        run: |
+          echo "github.ref_name: ${{ github.ref_name }}"
+          echo "github.sha: ${{ github.sha }}"
+          echo "github.run_id: ${{ github.run_id }}"
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
