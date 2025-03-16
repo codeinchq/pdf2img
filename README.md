@@ -1,60 +1,126 @@
-# Pdf2Img
+# PDF to Image Converter API
 
-[![Code Inc.](https://img.shields.io/badge/Code%20Inc.-Document%20Cloud-blue)](https://www.codeinc.co)
 [![Docker Image CI](https://github.com/codeinchq/pdf2img/actions/workflows/docker-image.yml/badge.svg)](https://github.com/codeinchq/pdf2img/actions/workflows/docker-image.yml)
-[![Docker Image Version](https://img.shields.io/docker/v/codeinchq/pdf2img?sort=semver&label=Docker%20Hub&color=red)](https://hub.docker.com/r/codeinchq/pdf2img/tags)
+[![Docker Image Version](https://img.shields.io/docker/v/joanfabregat/pdf2img?sort=semver&label=Docker%20Hub&color=red)](https://hub.docker.com/r/joanfabregat/pdf2img/tags)
 
-This repository contains a simple containerized API to convert PDF documents to images
-using [Imagemagick](https://imagemagick.org/).
+A lightweight Express.js service that converts PDF files to various image formats base
+on [ImageMagick](https://imagemagick.org/).
 
-The image is available on [Docker Hub](https://hub.docker.com/r/codeinchq/pdf2img) under the name `codeinchq/pdf2img`.
+## Features
 
-## Configuration
+- Convert PDF files to images (webp, jpg, png, etc.)
+- Configure conversion parameters (density, quality, dimensions, etc.)
+- Simple REST API interface
 
-By default, the container listens on port 3000. The port is configurable using the `PORT` environment variable.
+## Requirements
+
+- Node.js (v14 or higher recommended)
+- ImageMagick (`convert` command must be available in your PATH)
+
+## Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/jfabregat/pdf-to-image.git
+cd pdf-to-image
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Ensure ImageMagick is installed:
+    - **Linux**: `sudo apt-get install imagemagick`
+    - **macOS**: `brew install imagemagick`
+    - **Windows**: Download from [ImageMagick website](https://imagemagick.org/script/download.php)
 
 ## Usage
 
-All requests must by send in POST to the `/convert` endpoint with a `multipart/form-data` content type. The request must contain a PDF file with the key `file`. Additional parameters can be sent to customize the conversion process:
-* `format`: The format of the output images. Default is jpg.
-* `density`: The density of the output images. Default is 300.
-* `height`: The height of the output images. Default is 1000.
-* `width`: The width of the output images. Default is 1000.
-* `background`: The background color of the output images. Default is white.
-* `quality`: The quality of the output images in percentage. Default is 80.
-* `page`: The page to convert starting at 1. Default is 1.
+### Starting the server
 
-The server returns `200` if the conversion was successful and the images are available in the response body. In case of error, the server returns a `400` status code with a JSON object containing the error message (format: `{error: string}`).
-
-### Example
-
-#### Step 1: run the container using Docker
 ```bash
-docker run -p "3000:3000" codeinchq/pdf2img 
+npm start
 ```
 
-#### Step 2: convert a PDF file to images
-First page conversion to the default format (WebP)
-```bash
-curl -X POST -F "file=@/path/to/file.pdf" http://localhost:3000/convert -o example.webp
-```
-Conversion with custom params (page 2 to JPEG with an orange background):
-```bash
-curl -X POST -F "file=@/path/to/file.pdf" -F "page=2" -F "format=jpg" -F "background=#F60" http://localhost:3000/convert -o example.jpg
-```
+The server will start on port 3000 by default. You can configure the port using the `PORT` environment variable.
 
-### Health check
+### Environment Variables
 
-A health check is available at the `/health` endpoint. The server returns a status code of `200` if the service is healthy, along with a JSON object:
+- `PORT`: Server port (default: 3000)
+- `VERSION`: Application version
+- `BUILD_ID`: Build identifier
+- `COMMIT_SHA`: Git commit SHA
+
+### API Endpoints
+
+#### GET /
+
+Returns version and uptime information.
+
+**Response:**
+
 ```json
-{ "status": "up" }
+{
+  "upSince": "2025-03-16T10:00:00.000Z",
+  "version": "1.0.0",
+  "buildId": "12345",
+  "commitSha": "abc123"
+}
 ```
 
-## Client
+#### POST /convert
 
-A PHP 8 client is available at on [GitHub](https://github.com/codeinchq/document-cloud-php-client) and [Packagist](https://packagist.org/packages/codeinc/document-cloud-client).
+Converts a PDF file to an image.
 
+**Request:**
+
+- Method: POST
+- Content-Type: multipart/form-data
+- Body:
+    - `file`: PDF file (required)
+    - `format`: Output image format (default: webp)
+    - `density`: DPI for conversion (default: 300)
+    - `background`: Background color (default: white)
+    - `width`: Output width in pixels (default: 800)
+    - `height`: Output height in pixels (default: 600)
+    - `quality`: Output image quality (default: 80%)
+    - `page`: PDF page to convert (default: 1)
+
+**Example:**
+
+```bash
+curl -X POST http://localhost:3000/convert \
+  -F "file=@document.pdf" \
+  -F "format=jpg" \
+  -F "density=200" \
+  -F "width=1200" \
+  -F "page=2"
+```
+
+## Docker Support
+
+A Dockerfile is provided to containerize the application:
+
+```bash
+docker build -t pdf-to-image .
+docker run -p 3000:3000 pdf-to-image
+```
+
+## Security Considerations
+
+- This service uses temporary files that are automatically cleaned up after processing
+- No authentication is implemented - consider adding authentication for production use
+- Verify and validate all input parameters as needed for your environment
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/codeinchq/pdf2img?tab=MIT-1-ov-file) file for details.
+Copyright (c) 2025 Joan Fabrégat <j@fabreg.at>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the Software without restriction, subject to the conditions in the MIT
+License.
+
+The Software is provided "as is", without warranty of any kind.
